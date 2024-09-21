@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,6 +24,7 @@ public class SheepAI : MonoBehaviour {
 
     private float timeToNextAction;
 
+
     private enum SheepStates {
         Idle,
         Walking,
@@ -30,28 +32,38 @@ public class SheepAI : MonoBehaviour {
         Eating
     }
     private SheepStates currentState = SheepStates.Idle;
-
+    [SerializeField] private LayerMask winPointLayer;
+    private bool isDestroyed;
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = defaultSpeed;
+        isDestroyed = false;
     }
 
     private void Update() {
-        CheckForDogs();
+        if (!isDestroyed) {
+            CheckForDogs();
 
-        switch (currentState) {
-            case SheepStates.Idle:
-            HandleIdleState();
-            break;
-            case SheepStates.Walking:
-            HandleWalkingState();
-            break;
-            case SheepStates.Running:
-            HandleRunningState();
-            break;
-            case SheepStates.Eating:
-            HandleEatingState();
-            break;
+            switch (currentState) {
+                case SheepStates.Idle:
+                HandleIdleState();
+                break;
+                case SheepStates.Walking:
+                HandleWalkingState();
+                break;
+                case SheepStates.Running:
+                HandleRunningState();
+                break;
+                case SheepStates.Eating:
+                HandleEatingState();
+                break;
+            }
+            int maxDistance = 1;
+            bool winPointInFront = Physics.Raycast(transform.position, transform.forward, maxDistance, winPointLayer);
+            if (winPointInFront) {
+                ScoreCalculator.Instance.IncrementScore();
+                DestroySelf();
+            }
         }
     }
 
@@ -61,7 +73,6 @@ public class SheepAI : MonoBehaviour {
             // If a dog is detected, switch to running state
             currentState = SheepStates.Running;
             agent.speed = runSpeed;
-            Debug.Log("Dog is chasing! Running away...");
 
             // Calculate run direction away from the dog
             Vector3 runDirection = Vector3.zero;
@@ -75,7 +86,11 @@ public class SheepAI : MonoBehaviour {
             }
 
             // Set the destination to move in the calculated direction
-            agent.SetDestination(transform.position + runDirection * 5f);
+            float distance = UnityEngine.Random.Range(minWalkDistance, maxWalkDistance);
+
+            agent.SetDestination(transform.position + runDirection * distance);
+            
+
         }
     }
 
@@ -97,7 +112,9 @@ public class SheepAI : MonoBehaviour {
         if (agent.remainingDistance <= agent.stoppingDistance) {
             currentState = SheepStates.Idle;
             agent.speed = defaultSpeed; // Reset speed when idle
-            timeToNextAction = Time.time + Random.Range(2f, 5f); // Wait before moving again
+            int waitMin = 2;
+            int waitMax = 5;
+            timeToNextAction = Time.time + UnityEngine.Random.Range(waitMin, waitMax); // Wait before moving again
         }
     }
 
@@ -109,14 +126,18 @@ public class SheepAI : MonoBehaviour {
     }
 
     private void SetRandomDestination() {
-        float distance = Random.Range(minWalkDistance, maxWalkDistance);
-        Vector3 randomDirection = Random.insideUnitSphere * distance;
+        float distance = UnityEngine.Random.Range(minWalkDistance, maxWalkDistance);
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * distance;
         randomDirection += transform.position;
         NavMeshHit hit;
         NavMesh.SamplePosition(randomDirection, out hit, distance, NavMesh.AllAreas);
 
         agent.SetDestination(hit.position);
         currentState = SheepStates.Walking;
+    }
+    private void DestroySelf() {
+        isDestroyed = true;
+        Destroy(this.gameObject);
     }
     public bool IsWalking() {
         return currentState == SheepStates.Walking;
