@@ -5,9 +5,15 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
 
     private int score;
     public event EventHandler<OnScoreAddedArgs> OnScoreAdded;
-    public event EventHandler OnSheepDestroyed; 
     public class OnScoreAddedArgs : EventArgs{
         public int scoreArg;
+    }
+    private void Awake() {
+        UIController.Instance.OnGameRestart += UIController_OnGameRestart;
+    }
+
+    private void UIController_OnGameRestart(object sender, EventArgs e) {
+        ResetScore();
     }
 
     public void IncrementScore() {
@@ -15,7 +21,12 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
         OnScoreAdded?.Invoke(this, new OnScoreAddedArgs {
             scoreArg = score
         });
-        OnSheepDestroyed?.Invoke(this, EventArgs.Empty);
+    }
+    private void ResetScore() {
+        score = 0;
+        OnScoreAdded?.Invoke(this, new OnScoreAddedArgs {
+            scoreArg = score
+        });
     }
     public int GetScore() {
         return score;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SheepSpawner : Singleton<SheepSpawner> {
@@ -18,29 +19,42 @@ public class SheepSpawner : Singleton<SheepSpawner> {
     [SerializeField] private float spawnDelay; // Delay between spawn events
 
     [SerializeField] private int maxOnSceneCount;
-    private int currentOnSceneCount;
+
+    private List<SheepAI> onSceneSheepAIList = new List<SheepAI>();
 
     private float timeToNextSpawn;
+    private bool canSpawn = true;
 
     private void Awake() {
-        ScoreCalculator.Instance.OnSheepDestroyed += ScoreCalculator_OnSheepDestroyed;
+        canSpawn = true;
+
+        GameTimer.Instance.OnGameEnded += GameTimer_OnGameEnded;
+        UIController.Instance.OnGameRestart += UIController_OnGameRestart;
     }
 
-    private void ScoreCalculator_OnSheepDestroyed(object sender, EventArgs e) {
-        DecrementOnSceneCount();
+    private void UIController_OnGameRestart(object sender, EventArgs e) {
+        canSpawn = true;
+        foreach (SheepAI sheepAI in onSceneSheepAIList) {
+            sheepAI.DestroySelf();
+        }
     }
+
+    private void GameTimer_OnGameEnded(object sender, EventArgs e) {
+        canSpawn = false;
+        foreach (SheepAI sheepAI in onSceneSheepAIList) {
+            sheepAI.StopSheep();
+        }
+    }
+
+
 
     private void Update() {
-        if (CheckCanSpawn() && Time.time >= timeToNextSpawn) {
-            if (currentOnSceneCount <= maxSpawnCount) {
+        if (canSpawn && Time.time >= timeToNextSpawn) {
+            if (onSceneSheepAIList.Count <= maxSpawnCount) {
                 SpawnSheep();
             }
             timeToNextSpawn = Time.time + spawnDelay; // Reset the timer
         }
-    }
-
-    private bool CheckCanSpawn() {
-        return true; 
     }
 
     private void SpawnSheep() {
@@ -53,17 +67,13 @@ public class SheepSpawner : Singleton<SheepSpawner> {
             if (IsSpawnLocationValid(spawnLocationVector)) {
                 spawnLocation.position = spawnLocationVector;
                 Transform spawnTransform = Instantiate(sheepPrefab, spawnLocation);
-                IncrementOnSceneCount();
+                onSceneSheepAIList.Add(spawnTransform.gameObject.GetComponent<SheepAI>());
                 spawnTransform.parent = null; // Detach from the spawner
             }
         }
     }
-
-    private void IncrementOnSceneCount() {
-        currentOnSceneCount++;
-    }
-    private void DecrementOnSceneCount() {
-        currentOnSceneCount--;
+    public void RemoveSheepFromOnSceneList(SheepAI _sheepAI) {
+        onSceneSheepAIList.Remove( _sheepAI );
     }
 
     private Vector3 GetRandomSpawnLocation() {

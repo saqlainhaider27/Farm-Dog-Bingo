@@ -34,15 +34,26 @@ public class SheepAI : MonoBehaviour {
     private SheepStates currentState = SheepStates.Idle;
     [SerializeField] private LayerMask winPointLayer;
     private bool isDestroyed;
+    private bool gameEnded;
+
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
         agent.speed = defaultSpeed;
         isDestroyed = false;
-        
+
+        gameEnded = false;
+
+    }
+
+
+    public void StopSheep() {
+        gameEnded = true;
+        currentState = SheepStates.Idle;
+        agent.isStopped = true;
     }
 
     private void Update() {
-        if (!isDestroyed) {
+        if (!isDestroyed && !gameEnded) {
             CheckForDogs();
 
             switch (currentState) {
@@ -136,8 +147,10 @@ public class SheepAI : MonoBehaviour {
         agent.SetDestination(hit.position);
         currentState = SheepStates.Walking;
     }
-    private void DestroySelf() {
+    public void DestroySelf() {
         isDestroyed = true;
+        SheepSpawner.Instance.RemoveSheepFromOnSceneList(this);
+        Debug.Log("Destroyed");
         Destroy(this.gameObject);
     }
     public bool IsWalking() {
