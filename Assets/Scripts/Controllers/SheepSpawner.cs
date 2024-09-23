@@ -34,7 +34,8 @@ public class SheepSpawner : Singleton<SheepSpawner> {
 
     private void UIController_OnGameRestart(object sender, EventArgs e) {
         canSpawn = true;
-        foreach (SheepAI sheepAI in onSceneSheepAIList) {
+        List<SheepAI> sheepToDestroy = new List<SheepAI>(onSceneSheepAIList);
+        foreach (SheepAI sheepAI in sheepToDestroy) {
             sheepAI.DestroySelf();
         }
     }

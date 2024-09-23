@@ -150,7 +150,6 @@ public class SheepAI : MonoBehaviour {
     public void DestroySelf() {
         isDestroyed = true;
         SheepSpawner.Instance.RemoveSheepFromOnSceneList(this);
-        Debug.Log("Destroyed");
         Destroy(this.gameObject);
     }
     public bool IsWalking() {
