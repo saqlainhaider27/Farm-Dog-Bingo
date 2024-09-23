@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class SheepSpawner : MonoBehaviour {
+public class SheepSpawner : Singleton<SheepSpawner> {
 
     [SerializeField] private Vector3 spawnBoundsMin;
     [SerializeField] private Vector3 spawnBoundsMax;
@@ -16,11 +16,25 @@ public class SheepSpawner : MonoBehaviour {
     [SerializeField] private int maxSpawnCount; // Maximum number of sheep to spawn
 
     [SerializeField] private float spawnDelay; // Delay between spawn events
+
+    [SerializeField] private int maxOnSceneCount;
+    private int currentOnSceneCount;
+
     private float timeToNextSpawn;
+
+    private void Awake() {
+        ScoreCalculator.Instance.OnSheepDestroyed += ScoreCalculator_OnSheepDestroyed;
+    }
+
+    private void ScoreCalculator_OnSheepDestroyed(object sender, EventArgs e) {
+        DecrementOnSceneCount();
+    }
 
     private void Update() {
         if (CheckCanSpawn() && Time.time >= timeToNextSpawn) {
-            SpawnSheep();
+            if (currentOnSceneCount <= maxSpawnCount) {
+                SpawnSheep();
+            }
             timeToNextSpawn = Time.time + spawnDelay; // Reset the timer
         }
     }
@@ -39,9 +53,17 @@ public class SheepSpawner : MonoBehaviour {
             if (IsSpawnLocationValid(spawnLocationVector)) {
                 spawnLocation.position = spawnLocationVector;
                 Transform spawnTransform = Instantiate(sheepPrefab, spawnLocation);
+                IncrementOnSceneCount();
                 spawnTransform.parent = null; // Detach from the spawner
             }
         }
+    }
+
+    private void IncrementOnSceneCount() {
+        currentOnSceneCount++;
+    }
+    private void DecrementOnSceneCount() {
+        currentOnSceneCount--;
     }
 
     private Vector3 GetRandomSpawnLocation() {

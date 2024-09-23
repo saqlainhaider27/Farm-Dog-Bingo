@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class DogAI : MonoBehaviour {
 
     private Camera mainCamera;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask groundLayer;
     private GameInput gameInput;
     private NavMeshAgent agent;
 
@@ -14,7 +14,7 @@ public class DogAI : MonoBehaviour {
         Running,
     }
     private DogStates currentState;
-    [SerializeField] private float maxStoppingDistance = 0.5f;
+    private float maxStoppingDistance = 0.5f;
 
     private void Awake() {
         agent = GetComponent<NavMeshAgent>();
@@ -36,7 +36,7 @@ public class DogAI : MonoBehaviour {
 
     private void MoveDogToMousePosition() {
         Ray ray = mainCamera.ScreenPointToRay(gameInput.GetMousePosition());
-        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, layerMask)) {
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, groundLayer)) {
             // Agent is running
             agent.SetDestination(hit.point);
         }

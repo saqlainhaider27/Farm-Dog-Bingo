@@ -562,6 +562,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1405529450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1236897368323811226, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2711475247381181783}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5627bb849adc5244ca004770e85b4bb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1509828966
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +748,7 @@ GameObject:
   - component: {fileID: 2097507160}
   - component: {fileID: 2097507162}
   - component: {fileID: 2097507163}
+  - component: {fileID: 2097507164}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -793,6 +806,22 @@ MonoBehaviour:
   minSpawnCount: 1
   maxSpawnCount: 3
   spawnDelay: 7.5
+  maxOnSceneCount: 10
+--- !u!114 &2097507164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097507159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a74cfa1fe19d284f85df4fdf26fe79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 2097507163}
+  dog: {fileID: 1405529450}
+  maxPlayTime: 10
 --- !u!1001 &2711475247381181783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -810,6 +839,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236897368323811226, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1236897368323811226, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
+        type: 3}
+      propertyPath: maxStoppingDistance
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5919106110507709819, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
         type: 3}
