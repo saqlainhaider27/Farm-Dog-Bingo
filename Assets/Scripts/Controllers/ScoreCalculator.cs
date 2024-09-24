@@ -8,6 +8,10 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
     public class OnScoreAddedArgs : EventArgs{
         public int scoreArg;
     }
+    public event EventHandler<OnScoreResetEventArgs> OnScoreReset;
+    public class OnScoreResetEventArgs : EventArgs {
+        public int scoreArg;
+    }
     private void Awake() {
         UIController.Instance.OnGameRestart += UIController_OnGameRestart;
     }
@@ -24,7 +28,7 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
     }
     private void ResetScore() {
         score = 0;
-        OnScoreAdded?.Invoke(this, new OnScoreAddedArgs {
+        OnScoreReset?.Invoke(this, new OnScoreResetEventArgs {
             scoreArg = score
         });
     }

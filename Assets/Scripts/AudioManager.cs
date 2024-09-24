@@ -3,9 +3,26 @@ using UnityEngine;
 public class AudioManager : Singleton<AudioManager> {
     [SerializeField] private AudioClipRefsSO audioClipRefsSO;
 
+    [SerializeField] private AudioSource scoreAS;
+
+    private void Awake() {
+        PlaySound(audioClipRefsSO.roosterCry, transform.position);
+    }
     private void Start() {
         DogAI.Instance.OnDogRun += DogAI_OnDogRun;
         DogAI.Instance.OnBark += DogAI_OnBark;
+
+        UIController.Instance.OnGameRestart += UIController_OnGameRestart;
+        ScoreCalculator.Instance.OnScoreAdded += ScoreCalculator_OnScoreAdded;
+    }
+
+    private void ScoreCalculator_OnScoreAdded(object sender, ScoreCalculator.OnScoreAddedArgs e) {
+
+        scoreAS.Play();
+    }
+
+    private void UIController_OnGameRestart(object sender, System.EventArgs e) {
+        PlaySound(audioClipRefsSO.roosterCry, transform.position);
     }
 
     private void DogAI_OnBark(object sender, DogAI.OnBarkEventArgs e) {

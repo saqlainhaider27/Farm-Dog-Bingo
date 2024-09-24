@@ -33,3 +33,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 505a7b61598f697458824fe76ec5c3b6, type: 3}
   bark:
   - {fileID: 8300000, guid: 2be1a74aeee0c254c82c99aa12d6b36d, type: 3}
+  roosterCry:
+  - {fileID: 8300000, guid: fd468d976e4c81544b76c42eb6fb5210, type: 3}
+  score:
+  - {fileID: 8300000, guid: ac895997ba1c6f44eb881534e829e62f, type: 3}
