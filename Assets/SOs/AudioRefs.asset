@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4209ea7c05fc5a45bacd0d162911f37, type: 3}
+  m_Name: AudioRefs
+  m_EditorClassIdentifier: 
+  gallop:
+  - {fileID: 8300000, guid: 39838f65f7d739d4cb30677eae25d09f, type: 3}
+  - {fileID: 8300000, guid: fe5f6e3f4cb257f44a0675356d82cb62, type: 3}
+  - {fileID: 8300000, guid: e2e4ff6d55af45544bae03cc44f69001, type: 3}
+  walk:
+  - {fileID: 8300000, guid: e2157d3e8710a334a81be6952c2d82d0, type: 3}
+  - {fileID: 8300000, guid: a49687b2affcf2646ae0d07d474dea87, type: 3}
+  - {fileID: 8300000, guid: f89f804857492cd4f842f9522f4b8401, type: 3}
+  gallopSheep:
+  - {fileID: 8300000, guid: ee2048be92c458d47b44de4083ceee4e, type: 3}
+  - {fileID: 8300000, guid: 62ed23965508b1949b61fbc5b7db32e7, type: 3}
+  moo:
+  - {fileID: 8300000, guid: 4061332523171b34ba785d9506dfdfdb, type: 3}
+  - {fileID: 8300000, guid: 2a8c6bca468edfe45a1cea34fcf748b5, type: 3}
+  eat:
+  - {fileID: 8300000, guid: 70a766f4e7ceee44382ed043a48d0579, type: 3}
+  - {fileID: 8300000, guid: 34979ff95fb7f564b9a7fb8fb8c36454, type: 3}
+  - {fileID: 8300000, guid: d4df65e9a01948543b35985d67bda4bd, type: 3}
+  - {fileID: 8300000, guid: 505a7b61598f697458824fe76ec5c3b6, type: 3}
+  bark:
+  - {fileID: 8300000, guid: 2be1a74aeee0c254c82c99aa12d6b36d, type: 3}

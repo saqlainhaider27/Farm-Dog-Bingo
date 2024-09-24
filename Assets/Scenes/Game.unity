@@ -1211,6 +1211,7 @@ GameObject:
   - component: {fileID: 2097507165}
   - component: {fileID: 2097507166}
   - component: {fileID: 2097507167}
+  - component: {fileID: 2097507168}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -1319,6 +1320,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d54ec5a5ba1b344b5512abf3bf1abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2097507168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097507159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ade83b30f4d11c4786a94c7b39fdfc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipRefsSO: {fileID: 11400000, guid: 038ae9e3d8b990b439e6b5fbf412820a, type: 2}
 --- !u!1001 &2711475247381181783
 PrefabInstance:
   m_ObjectHideFlags: 0
