@@ -13,10 +13,10 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
         public int scoreArg;
     }
     private void Awake() {
-        UIController.Instance.OnGameRestart += UIController_OnGameRestart;
+        UIController.Instance.OnGameStart += UIController_OnGameStart;
     }
 
-    private void UIController_OnGameRestart(object sender, EventArgs e) {
+    private void UIController_OnGameStart(object sender, EventArgs e) {
         ResetScore();
     }
 

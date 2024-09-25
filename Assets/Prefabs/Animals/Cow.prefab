@@ -1049,6 +1049,9 @@ MonoBehaviour:
   dogLayer:
     serializedVersion: 2
     m_Bits: 128
+  walkSoundCooldown: 0.7
+  runSoundCooldown: 0.5
+  eatSoundCooldown: 0.5
   targetGroup: {x: 0, y: 0, z: 0}
   winPointLayer:
     serializedVersion: 2
@@ -1074,7 +1077,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 2
+  m_ObstacleAvoidanceType: 3
 --- !u!65 &8977522805598889976
 BoxCollider:
   m_ObjectHideFlags: 0

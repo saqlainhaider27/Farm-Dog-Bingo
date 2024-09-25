@@ -42,12 +42,12 @@ public class DogAI : Singleton<DogAI> {
         gameInput = GameInput.Instance;
         mainCamera = Camera.main;
 
-        gameEnded = false;
+        gameEnded = true;
         GameTimer.Instance.OnGameEnded += GameTimer_OnGameEnded;
-        UIController.Instance.OnGameRestart += OnGameRestart_OnGameRestart;
+        UIController.Instance.OnGameStart += OnGameRestart_OnGameStart;
     }
 
-    private void OnGameRestart_OnGameRestart(object sender, System.EventArgs e) {
+    private void OnGameRestart_OnGameStart(object sender, System.EventArgs e) {
         agent.isStopped = false;
         gameEnded = false;
         transform.position = dogSpawn.position;

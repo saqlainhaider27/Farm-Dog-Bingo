@@ -267,10 +267,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5627bb849adc5244ca004770e85b4bb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  dogSpawn: {fileID: 0}
+  groundLayer:
     serializedVersion: 2
-    m_Bits: 64
-  maxStoppingDistance: 0
+    m_Bits: 0
 --- !u!195 &7039316296406034304
 NavMeshAgent:
   m_ObjectHideFlags: 0

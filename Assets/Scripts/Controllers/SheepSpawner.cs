@@ -23,16 +23,16 @@ public class SheepSpawner : Singleton<SheepSpawner> {
     private List<SheepAI> onSceneSheepAIList = new List<SheepAI>();
 
     private float timeToNextSpawn;
-    private bool canSpawn = true;
+    private bool canSpawn = false;
 
     private void Awake() {
-        canSpawn = true;
+        canSpawn = false;
 
         GameTimer.Instance.OnGameEnded += GameTimer_OnGameEnded;
-        UIController.Instance.OnGameRestart += UIController_OnGameRestart;
+        UIController.Instance.OnGameStart += UIController_OnGameStart;
     }
 
-    private void UIController_OnGameRestart(object sender, EventArgs e) {
+    private void UIController_OnGameStart(object sender, EventArgs e) {
         canSpawn = true;
         List<SheepAI> sheepToDestroy = new List<SheepAI>(onSceneSheepAIList);
         foreach (SheepAI sheepAI in sheepToDestroy) {
