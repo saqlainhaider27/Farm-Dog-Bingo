@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour {
 
     private void Awake() {
-        UIController.Instance.OnGameHome += UIController_OnGameHome;
+        //UIController.Instance.OnGameHome += UIController_OnGameHome;
     }
 
     private void UIController_OnGameHome(object sender, EventArgs e) {
-        //ResetScene();
+        ResetScene();
     }
 
     private void ResetScene() {

@@ -1,8 +1,9 @@
 using UnityEngine;
 
 public class AudioManager : Singleton<AudioManager> {
+    [Header("AudioRefs")]
     [SerializeField] private AudioClipRefsSO audioClipRefsSO;
-
+    [Header("AudioSource Refs")]
     [SerializeField] private AudioSource scoreAS;
 
     private void Start() {

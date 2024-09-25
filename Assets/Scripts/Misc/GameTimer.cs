@@ -6,7 +6,7 @@ public class GameTimer : Singleton<GameTimer> {
     [SerializeField] private float maxPlayTime; // This should be set to the desired play time duration in seconds.
     public event EventHandler OnGameEnded;
 
-    public float timeSinceGameStart;
+    private float timeSinceGameStart;
     private float gameStartTime; // Store the start time of the game.
 
     private bool gameStarted;

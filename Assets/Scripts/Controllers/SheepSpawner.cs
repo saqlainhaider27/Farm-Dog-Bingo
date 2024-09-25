@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SheepSpawner : Singleton<SheepSpawner> {
-
+    [Header("Spawn Bounds")]
     [SerializeField] private Vector3 spawnBoundsMin;
     [SerializeField] private Vector3 spawnBoundsMax;
-
+    [Header("Exclude Bounds")]
     [SerializeField] private Vector3 excludeBoundsMin;
     [SerializeField] private Vector3 excludeBoundsMax;
-
+    [Header("Prefab Settings")]
     [SerializeField] private Transform sheepPrefab;
     [SerializeField] private Transform spawnLocation;
-
+    [Header("Count Settings")]
     [SerializeField] private int minSpawnCount; // Minimum number of sheep to spawn
     [SerializeField] private int maxSpawnCount; // Maximum number of sheep to spawn
-
+    [Header("Misc")]
     [SerializeField] private float spawnDelay; // Delay between spawn events
 
     [SerializeField] private int maxOnSceneCount;
