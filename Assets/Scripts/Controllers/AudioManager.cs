@@ -63,12 +63,15 @@ public class AudioManager : Singleton<AudioManager> {
             OnMusicVolumeChanged?.Invoke(this, new OnMusicVolumeChangedEventArgs {
                 volume = _volume
             });
+            musicAS.volume = _volume;
         }
         if (PlayerPrefs.HasKey(SFX_VOLUME_PREF)) {
             float _volume = PlayerPrefs.GetFloat(SFX_VOLUME_PREF);
             OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
                 volume = _volume
             });
+            scoreAS.volume = _volume;
+            sfxVolume = _volume;
         }
     }
     private void DogAI_OnBark(object sender, DogAI.OnBarkEventArgs e) {
