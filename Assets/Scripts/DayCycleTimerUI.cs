@@ -10,7 +10,7 @@ public class DayCycleTimerUI : MonoBehaviour {
     }
 
     private void Update() {
-        float targetFillAmount = GameTimer.Instance.GetTimeSinceGameStart(); // Get the current progress.
+        float targetFillAmount = GameTimer.Instance.GetTimeSinceGameStartNormalized(); // Get the current progress.
         fillImage.fillAmount = targetFillAmount;
     }
 }

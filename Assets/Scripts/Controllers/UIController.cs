@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIController : Singleton<UIController> {
 
@@ -14,29 +15,60 @@ public class UIController : Singleton<UIController> {
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [Header("Sliders")]
+    [SerializeField] private Slider SFXSlider;
+    [SerializeField] private Slider musicSlider;
+    private bool paused;
+    private bool gameStarted;
     public event EventHandler OnGameStart;
+    public event EventHandler<OnMusicVolumeChangedEventArgs> OnMusicVolumeChanged;
+    public class OnMusicVolumeChangedEventArgs : EventArgs {
+        public float volume;    
+    }
+
+    public event EventHandler<OnSFXVolumeChangedEventArgs> OnSFXVolumeChanged;
+    public class OnSFXVolumeChangedEventArgs : EventArgs {
+        public float volume;
+    }
+
     //public event EventHandler OnGameHome;
 
     private void Awake() {
-        StartGame();
-        scoreText.text = ScoreCalculator.Instance.GetScore().ToString();
-        highScoreText.text = ScoreCalculator.Instance.GetHighScore().ToString();
+        StartGameMenuPreset();
+
+
         GameTimer.Instance.OnGameEnded += GameTimer_OnGameEnded;
+        AudioManager.Instance.OnMusicVolumeChanged += AudioManager_OnMusicVolumeChanged;
+        AudioManager.Instance.OnSFXVolumeChanged += AudioManager_OnSFXVolumeChanged;
+        GameInput.Instance.OnEscapePressed += GameInput_OnEscapePressed;
+    }
+
+    private void GameInput_OnEscapePressed(object sender, EventArgs e) {
+        TogglePause();
+    }
+
+    private void AudioManager_OnSFXVolumeChanged(object sender, AudioManager.OnSFXVolumeChangedEventArgs e) {
+        SFXSlider.value = e.volume;
+    }
+
+    private void AudioManager_OnMusicVolumeChanged(object sender, AudioManager.OnMusicVolumeChangedEventArgs e) {
+        musicSlider.value = e.volume;
     }
 
     private void GameTimer_OnGameEnded(object sender, EventArgs e) {
 
-        scoreText.text = ScoreCalculator.Instance.GetScore().ToString();
-        highScoreText.text = ScoreCalculator.Instance.GetHighScore().ToString();
-
-        StartGame();
+        gameStarted = false;
+        StartGameMenuPreset();
     }
-    public void StartGame() {
+    public void StartGameMenuPreset() {
         mainMenu.SetActive(true);
         gameMenu.SetActive(false);
         settingMenu.SetActive(false);
         pauseMenu.SetActive(false);
         scoreCanvas.SetActive(false);
+
+        scoreText.text = ScoreCalculator.Instance.GetScore().ToString();
+        highScoreText.text = ScoreCalculator.Instance.GetHighScore().ToString();
     }
 
     public void PlayButton() {
@@ -47,6 +79,7 @@ public class UIController : Singleton<UIController> {
         pauseMenu.SetActive(false);
         scoreCanvas.SetActive(true);
         OnGameStart?.Invoke(this, EventArgs.Empty);
+        gameStarted = true;
     }
 
     public void QuitButton() {
@@ -90,6 +123,43 @@ public class UIController : Singleton<UIController> {
         pauseMenu.SetActive(false);
         scoreCanvas.SetActive(false);
         
+        gameStarted = false;
+    }
+    public void BackButton() {
+        if (GameTimer.Instance.GetTimeSinceGameStart() == 0) {
+            HomeButton();
+        }
+        else {
+            PauseButton();
+        }
+
 
     }
+
+    public void SetMusicSliderValue() {
+        float _volume = musicSlider.value;
+        OnMusicVolumeChanged?.Invoke(this, new OnMusicVolumeChangedEventArgs {
+            volume = _volume
+        });
+    }
+    public void SetSFXSliderValue() {
+        float _volume = SFXSlider.value;
+
+        OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
+            volume = _volume
+        });
+    }
+    public void TogglePause() {
+        if (gameStarted) {
+            if (paused) {
+                ResumeButton();
+            }
+            else {
+                PauseButton();
+            }
+            paused = !paused;
+        }
+
+    }
+
 }
