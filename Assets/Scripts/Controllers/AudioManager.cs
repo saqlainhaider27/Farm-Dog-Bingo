@@ -65,6 +65,9 @@ public class AudioManager : Singleton<AudioManager> {
             });
             musicAS.volume = _volume;
         }
+        else {
+            SetDefaultVolumeSetting();
+        }
         if (PlayerPrefs.HasKey(SFX_VOLUME_PREF)) {
             float _volume = PlayerPrefs.GetFloat(SFX_VOLUME_PREF);
             OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
@@ -73,7 +76,23 @@ public class AudioManager : Singleton<AudioManager> {
             scoreAS.volume = _volume;
             sfxVolume = _volume;
         }
+        else {
+            SetDefaultVolumeSetting();
+        }
     }
+
+    private void SetDefaultVolumeSetting() {
+        musicAS.volume = 1;
+        sfxVolume = 1;
+        scoreAS.volume = 1;
+        OnMusicVolumeChanged?.Invoke(this, new OnMusicVolumeChangedEventArgs {
+            volume = musicAS.volume,
+        });
+        OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
+            volume = sfxVolume,
+        });
+    }
+
     private void DogAI_OnBark(object sender, DogAI.OnBarkEventArgs e) {
         PlaySound(audioClipRefsSO.bark, e.position);
     }

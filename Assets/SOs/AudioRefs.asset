@@ -24,8 +24,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ee2048be92c458d47b44de4083ceee4e, type: 3}
   - {fileID: 8300000, guid: 62ed23965508b1949b61fbc5b7db32e7, type: 3}
   moo:
-  - {fileID: 8300000, guid: 4061332523171b34ba785d9506dfdfdb, type: 3}
-  - {fileID: 8300000, guid: 2a8c6bca468edfe45a1cea34fcf748b5, type: 3}
+  - {fileID: 8300000, guid: 0020e54c51c4d8e4da062253385a7318, type: 3}
   eat:
   - {fileID: 8300000, guid: 70a766f4e7ceee44382ed043a48d0579, type: 3}
   - {fileID: 8300000, guid: 34979ff95fb7f564b9a7fb8fb8c36454, type: 3}
