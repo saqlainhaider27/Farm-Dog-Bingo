@@ -18,7 +18,11 @@ public class ScoreCalculator : Singleton<ScoreCalculator> {
     private void Awake() {
         UIController.Instance.OnGameStart += UIController_OnGameStart;
         GameTimer.Instance.OnGameEnded += GameTimer_OnGameEnded;
+        SetHighScore();
+    }
 
+    private void SetHighScore() {
+        highScore = PlayerPrefs.GetInt(HIGH_SCORE);
     }
 
     private void GameTimer_OnGameEnded(object sender, EventArgs e) {
