@@ -100,6 +100,7 @@ public class UIController : Singleton<UIController> {
     }
     public void PauseButton() {
         Time.timeScale = 0;
+        paused = true;
         mainMenu.SetActive(false);
         gameMenu.SetActive(false);
         settingMenu.SetActive(false);
@@ -109,6 +110,7 @@ public class UIController : Singleton<UIController> {
     }
     public void ResumeButton() {
         Time.timeScale = 1;
+        paused = false;
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
         settingMenu.SetActive(false);

@@ -8409,7 +8409,7 @@ GameObject:
   - component: {fileID: 1933927767}
   - component: {fileID: 1933927766}
   m_Layer: 5
-  m_Name: MainMenuText
+  m_Name: FarmDogBingoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8454,7 +8454,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MAIN MENU
+  m_text: FARM DOG BINGO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1f6b041c881cfec4d83a56d3326b5aad, type: 2}
   m_sharedMaterial: {fileID: -2192248717847889352, guid: 1f6b041c881cfec4d83a56d3326b5aad,
@@ -9550,6 +9550,11 @@ PrefabInstance:
       propertyPath: dogSpawn
       value: 
       objectReference: {fileID: 1886601307}
+    - target: {fileID: 5378062850637805099, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5919106110507709819, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9599,6 +9604,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7624962726722569496, guid: b2a69dbaae3f53e4da4eef33ea223ce4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
