@@ -16,6 +16,12 @@ public class GameTimer : Singleton<GameTimer> {
         gameStartTime = Time.time;
         UIController.Instance.OnGameStart += OnGameRestart_OnGameStart;
         OnGameEnded += GameTimer_OnGameEnded;
+        UIController.Instance.OnHomeButtonPressed += UIController_OnHomeButtonPressed;
+    }
+
+    private void UIController_OnHomeButtonPressed(object sender, EventArgs e) {
+        gameStarted = false;
+        timeSinceGameStart = 0;
     }
 
     private void GameTimer_OnGameEnded(object sender, EventArgs e) {
@@ -45,6 +51,7 @@ public class GameTimer : Singleton<GameTimer> {
         return Mathf.Clamp01(timeSinceGameStart / maxPlayTime); // Ensure the returned value is between 0 and 1.
     }
     public float GetTimeSinceGameStart() {
+        Debug.Log(timeSinceGameStart);
         return timeSinceGameStart;
     }
 }

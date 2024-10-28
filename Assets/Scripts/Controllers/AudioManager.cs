@@ -66,8 +66,9 @@ public class AudioManager : Singleton<AudioManager> {
             musicAS.volume = _volume;
         }
         else {
-            SetDefaultVolumeSetting();
+            SetDefaultMusicVolume();
         }
+
         if (PlayerPrefs.HasKey(SFX_VOLUME_PREF)) {
             float _volume = PlayerPrefs.GetFloat(SFX_VOLUME_PREF);
             OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
@@ -77,17 +78,22 @@ public class AudioManager : Singleton<AudioManager> {
             sfxVolume = _volume;
         }
         else {
-            SetDefaultVolumeSetting();
+            SetDefaultSFXVolume();
         }
+
     }
 
-    private void SetDefaultVolumeSetting() {
+    private void SetDefaultMusicVolume() {
         musicAS.volume = 1;
-        sfxVolume = 1;
-        scoreAS.volume = 1;
         OnMusicVolumeChanged?.Invoke(this, new OnMusicVolumeChangedEventArgs {
             volume = musicAS.volume,
         });
+    }
+
+    private void SetDefaultSFXVolume() {
+        sfxVolume = 1;
+        scoreAS.volume = 1;
+
         OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
             volume = sfxVolume,
         });

@@ -21,6 +21,7 @@ public class UIController : Singleton<UIController> {
     private bool paused;
     private bool gameStarted;
     public event EventHandler OnGameStart;
+    public event EventHandler OnHomeButtonPressed;
     public event EventHandler<OnMusicVolumeChangedEventArgs> OnMusicVolumeChanged;
     public class OnMusicVolumeChangedEventArgs : EventArgs {
         public float volume;    
@@ -109,8 +110,8 @@ public class UIController : Singleton<UIController> {
 
     }
     public void ResumeButton() {
-        Time.timeScale = 1;
         paused = false;
+        Time.timeScale = 1;
         mainMenu.SetActive(false);
         gameMenu.SetActive(true);
         settingMenu.SetActive(false);
@@ -126,6 +127,7 @@ public class UIController : Singleton<UIController> {
         scoreCanvas.SetActive(false);
         
         gameStarted = false;
+        OnHomeButtonPressed?.Invoke(this, EventArgs.Empty);
     }
     public void BackButton() {
         if (GameTimer.Instance.GetTimeSinceGameStart() == 0) {
@@ -146,7 +148,6 @@ public class UIController : Singleton<UIController> {
     }
     public void SetSFXSliderValue() {
         float _volume = SFXSlider.value;
-
         OnSFXVolumeChanged?.Invoke(this, new OnSFXVolumeChangedEventArgs {
             volume = _volume
         });
@@ -159,7 +160,6 @@ public class UIController : Singleton<UIController> {
             else {
                 PauseButton();
             }
-            paused = !paused;
         }
 
     }
