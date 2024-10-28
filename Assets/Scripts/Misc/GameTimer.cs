@@ -51,7 +51,6 @@ public class GameTimer : Singleton<GameTimer> {
         return Mathf.Clamp01(timeSinceGameStart / maxPlayTime); // Ensure the returned value is between 0 and 1.
     }
     public float GetTimeSinceGameStart() {
-        Debug.Log(timeSinceGameStart);
         return timeSinceGameStart;
     }
 }
